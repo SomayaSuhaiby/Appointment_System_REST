@@ -4,7 +4,7 @@ This is a backend application built with **Java**, **Spring Boot**, and **SQL** 
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - Java 17+  
 - Spring Boot 3.x  
@@ -14,7 +14,7 @@ This is a backend application built with **Java**, **Spring Boot**, and **SQL** 
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -25,34 +25,36 @@ This is a backend application built with **Java**, **Spring Boot**, and **SQL** 
 ### Build and Run
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/appointment-system-backend.git
-   cd appointment-system-backend
-   
-   ## 🔌 API Endpoints
 
-### 👤 User Management
+   ```bash
+   git clone https://github.com/SomayaSuhaiby/Appointment_System_REST.git
+   cd appointmentsystem-REST
+   
+
+
+###  API Endpoints
+### User Management
 
 | Method | Endpoint              | Description                | Request Body            |
 |--------|-----------------------|----------------------------|-------------------------|
 | POST   | `/api/users/register` | Register a new user        | `email`, `password`, etc.|
 | POST   | `/api/users/login`    | Login with credentials     | `email`, `password`      |
 
-### 🛎️ Service Management
+###  Service Management
 
 | Method | Endpoint                     | Description                                  | Request Body (JSON)                 |
 |--------|------------------------------|----------------------------------------------|-------------------------------------|
 | GET    | `/api/services/{providerId}` | Get all services for a specific provider     | None                              |
 | POST   | `/api/services/create`       | Create a new service (provider required)     | `name`, `description`, `price`, `serviceProviderId` |
 
-### 📅 Availability Management
+###  Availability Management
 
 | Method | Endpoint                   | Description                              | Request Body (JSON)                                  |
 |--------|----------------------------|------------------------------------------|-----------------------------------------------------|
 | GET    | `/api/availability/list`   | Get all available service time slots     | None                                                |
 | POST   | `/api/availability/create` | Create a new availability for a service  | `serviceProviderId`, `serviceId`, `start_time`, `end_time` |
 
-### 📅 Appointment Management
+###  Appointment Management
 
 | Method | Endpoint                         | Description                            | Request Body (JSON)                                      |
 |--------|---------------------------------|----------------------------------------|---------------------------------------------------------|
@@ -63,7 +65,7 @@ This is a backend application built with **Java**, **Spring Boot**, and **SQL** 
 
 
 
-## 🧪 Sample Request Bodies
+##  Sample Request Bodies
 
 ### Booking an appointment Example
 
