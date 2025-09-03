@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("api/services")
-public class serviceController {
+public class ServiceController {
 
     @Autowired
     private ServiceRepository serviceRepository;

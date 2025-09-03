@@ -21,7 +21,7 @@ import com.example.appointmentsystem.repositories.UserRepository;
 
 @RestController
 @RequestMapping("/api/users")
-public class userController {
+public class UserController {
      @Autowired
     private UserRepository userRepository;
 
@@ -31,6 +31,7 @@ public class userController {
      @Autowired
      private RoleRepository roleRepository;
 
+//Registration 
 @PostMapping(value = "/register", consumes = "application/json")
 public ResponseEntity<?> register(@RequestBody UserDTO dto) {
 
@@ -58,6 +59,7 @@ public ResponseEntity<?> register(@RequestBody UserDTO dto) {
 	
 }
 
+// login 
 @PostMapping(value = "/login", consumes = "application/json")
 public ResponseEntity<String> login(@RequestBody UserDTO dto){
  User foundUser=userRepository.findByEmail(dto.getEmail());

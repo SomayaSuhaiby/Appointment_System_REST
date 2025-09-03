@@ -77,32 +77,3 @@ public class Appointment {
     }
    
 }
-/*
-  "id": 1,
-    "user": {
-        "id": 1,
-        "username": "somaya",
-        "email": "somaya@gmil.com",
-        "password": "somaya123 ",
-        "role": "admin",
-        "createdAt": "2025-05-06T19:38:30"
-    },
-    "service": {
-        "id": 2,
-        "name": "conducting test",
-        "description": "conducting test for patient",
-        "price": 5000.00,
-        "serviceProvider": {
-            "id": 1,
-            "username": "somaya",
-            "email": "somaya@gmil.com",
-            "password": "somaya123 ",
-            "role": "admin",
-            "createdAt": "2025-05-06T19:38:30"
-        }
-    },
-    "status": "pending",
-    "appointments_time": "2025-05-06T19:38:30"
-}
- 
- */

@@ -71,30 +71,3 @@ public class Availability {
 
 }
 
-/*
- {
-    "serviceProvider" :
-    {
-        "id" :6,
-        "email": "owais3@gmail.com",
-  "password": "$2a$10$s7FRn2XYIP8d9VfgjaukHeSmUV10RoMEG2fqQs3yzwkkaIAEgVp2.",
-    "username": "Owais3",
-    "roles": {
-        "id":"1",
-        "name":"name"
-    }
-    },
-    "start_time":"2025-08-02T10:00:00",
-    "end_time":"2025-08-02T11:00:00",
-      "service":
-    {
-      "id": 3,
-      "name": "eyes test",
-      "description": "entirly eyes test",
-      "price":"5000",
-    
-      "serviceProvider":
-
-    }
-}
- */
