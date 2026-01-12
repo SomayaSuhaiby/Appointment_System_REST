@@ -1,7 +1,10 @@
 package com.example.appointmentsystem.model;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -16,27 +19,31 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+
 @Entity
 @Table(name = "users")
 public class User {
-      @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+
+    @Column(nullable = false, length = 50)
     private String username;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String password;
-      private LocalDateTime createdAt=LocalDateTime.now();
 
-   @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
-   @JoinTable(
-    name = "user_role",
-    joinColumns = @JoinColumn(name="user_id"),
-    inverseJoinColumns = @JoinColumn(name="role_id")
-   )
-   @JsonManagedReference//to avoid json infintive looping
-    private Set<Role> roles;
+    
+    private LocalDateTime createdAt = LocalDateTime.now();
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "user_role", 
+    joinColumns = @JoinColumn(name = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     public Long getId() {
         return this.id;
@@ -85,6 +92,5 @@ public class User {
     public void setRole(Set<Role> role) {
         this.roles = role;
     }
-  
 
 }

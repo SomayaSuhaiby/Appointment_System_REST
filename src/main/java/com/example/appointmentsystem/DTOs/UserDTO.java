@@ -1,22 +1,30 @@
 package com.example.appointmentsystem.DTOs;
 
-import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class UserDTO {
+    @NotBlank(message = "User name is required")
+    @Size(min = 3)
     private String username;
+
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, message = "Password must be at least 8 charac")
     private String password;
+
+    @Email(message = "Invalid email adress")
+    @NotBlank(message = "Email is required")
     private String email;
+
+    @NotNull(message = "Rol id is required")
     private Long roleId;
-    private LocalDateTime  createdAt=LocalDateTime.now();
 
-    public LocalDateTime getCreatedAt() {
-        return this.createdAt;
-    }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+
+
 
     public String getUsername() {
         return this.username;

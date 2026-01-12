@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.example.appointmentsystem.DTOs.LoginRequestDTO;
 import com.example.appointmentsystem.DTOs.UserDTO;
 import com.example.appointmentsystem.model.Role;
 import com.example.appointmentsystem.model.User;
 import com.example.appointmentsystem.repositories.RoleRepository;
 import com.example.appointmentsystem.repositories.UserRepository;
+
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -33,7 +35,7 @@ public class UserController {
 
 //Registration 
 @PostMapping(value = "/register", consumes = "application/json")
-public ResponseEntity<?> register(@RequestBody UserDTO dto) {
+public ResponseEntity<?> register(@Valid @RequestBody UserDTO dto) {
 
     
 	  if (userRepository.findByEmail(dto.getEmail())!= null) {
@@ -43,25 +45,28 @@ public ResponseEntity<?> register(@RequestBody UserDTO dto) {
           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Role ID is required");
         }
       
-    Optional<Role> roleOptional=roleRepository.findById(dto.getRoleId());
-    Role roleValue=  roleOptional.get();
-    Set<Role> getRole=Set.of(roleValue);
+    Optional<Role> role=roleRepository.findById(dto.getRoleId());
+    if (role.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Role not found");
+    }
+    Role roleValue=  role.get();
+   // Set<Role> getRole=Set.of(roleValue);
         User user=new User();
 	 user.setPassword(passwordEncoder.encode(dto.getPassword()));
       user.setUsername(dto.getUsername());
       user.setEmail(dto.getEmail());
-      user.setRole(getRole);
-      user.setCreatedAt(dto.getCreatedAt());
+      user.setRole(Set.of(roleValue));
+    
 
 	
      userRepository.save(user);
-     return ResponseEntity.status(HttpStatus.CREATED).body(user);
+     return ResponseEntity.status(HttpStatus.CREATED).body("User created successfuly");
 	
 }
 
 // login 
 @PostMapping(value = "/login", consumes = "application/json")
-public ResponseEntity<String> login(@RequestBody UserDTO dto){
+public ResponseEntity<String> login(@Valid @RequestBody LoginRequestDTO dto){
  User foundUser=userRepository.findByEmail(dto.getEmail());
  if(foundUser!=null&&passwordEncoder.matches(dto.getPassword(), foundUser.getPassword()))
  return ResponseEntity.ok("login successful");
