@@ -19,18 +19,19 @@ import com.example.appointmentsystem.repositories.UserRepository;
 @Service
 public class CustomUserDetailsServices implements UserDetailsService{
 
-  @Autowired
-  private UserRepository userRepository;
+   private final UserRepository userRepository;
 
     public CustomUserDetailsServices(UserRepository userRepository){
       this.userRepository=userRepository;
     }
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+         System.out.println("AUTH ATTEMPT FOR******************************: " + email);
+         
       User user=userRepository.findByEmail(email);
    
       if (user==null) {
-        throw new UsernameNotFoundException("User not found"+email);
+        throw new UsernameNotFoundException("User not found: "+ email);
       }
 List<GrantedAuthority> authorities = new ArrayList<>();
 for (Role role : user.getRole()) {

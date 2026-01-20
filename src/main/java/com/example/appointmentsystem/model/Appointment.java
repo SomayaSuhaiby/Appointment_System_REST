@@ -15,26 +15,26 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "appointments")
 public class Appointment {
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id; 
+    private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-  @ManyToOne
-  @JoinColumn(name = "service_id")
-  private ServiceModel service;
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    private ServiceModel service;
 
-  private LocalDateTime appointment_time;
-  @Enumerated(EnumType.STRING) 
-  private Status status=Status.pending;
-  
-  public enum Status{
-    pending,confirmed,cancelled;
-  }
+    private LocalDateTime appointment_time;
 
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.pending;
+
+    public enum Status {
+        pending, confirmed, cancelled;
+    }
 
     public Long getId() {
         return this.id;
@@ -75,5 +75,5 @@ public class Appointment {
     public void setStatus(Status status) {
         this.status = status;
     }
-   
+
 }

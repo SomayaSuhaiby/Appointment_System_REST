@@ -2,27 +2,22 @@ package com.example.appointmentsystem.DTOs;
 
 import java.time.LocalDateTime;
 
+import com.example.appointmentsystem.model.Appointment;
+
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotNull;
 
 public class AppointmentDTO {
-    private Long userId;
+
+    @NotNull(message = "Service Id is required")
     private Long serviceId;
+
+    @NotNull
     private LocalDateTime appointment_time;
-    @Enumerated(EnumType.STRING) 
-  private com.example.appointmentsystem.model.Appointment.Status status;
-  
-  public enum Status{
-    pending,confirmed,cancelled;
-  }
 
-    public Long getUserId() {
-        return this.userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+    @Enumerated(EnumType.STRING)
+    private Appointment.Status status;
 
     public Long getServiceId() {
         return this.serviceId;
