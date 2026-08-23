@@ -9,25 +9,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 @Entity
-@Table(name="availability")
+@Table(name = "availability")
 public class Availability {
-     @Id
+    @Id
     @GeneratedValue(strategy = (GenerationType.IDENTITY))
     private Long id;
 
-     @ManyToOne
-     @JoinColumn(name = "service_provider_id")
-     private User serviceProvider;
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    private ServiceModel service;
 
-     @ManyToOne
-      @JoinColumn(name = "service_id")
-      private ServiceModel service;
-
-     private LocalDateTime start_time;
-     private LocalDateTime end_time;
-
-
+    private LocalDateTime start_time;
+    private LocalDateTime end_time;
 
     public Long getId() {
         return this.id;
@@ -35,14 +30,6 @@ public class Availability {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getServiceProvider() {
-        return this.serviceProvider;
-    }
-
-    public void setServiceProvider(User serviceProvider) {
-        this.serviceProvider = serviceProvider;
     }
 
     public ServiceModel getService() {
@@ -70,4 +57,3 @@ public class Availability {
     }
 
 }
-

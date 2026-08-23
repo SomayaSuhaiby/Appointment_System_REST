@@ -2,10 +2,7 @@ package com.example.appointmentsystem.DTOs;
 
 import java.time.LocalDateTime;
 
-import com.example.appointmentsystem.model.Appointment;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 
 public class AppointmentDTO {
@@ -14,10 +11,9 @@ public class AppointmentDTO {
     private Long serviceId;
 
     @NotNull
-    private LocalDateTime appointment_time;
+    private LocalDateTime appointmentTime;
 
-    @Enumerated(EnumType.STRING)
-    private Appointment.Status status;
+    
 
     public Long getServiceId() {
         return this.serviceId;
@@ -28,19 +24,12 @@ public class AppointmentDTO {
     }
 
     public LocalDateTime getAppointment_time() {
-        return this.appointment_time;
+        return this.appointmentTime;
     }
 
     public void setAppointment_time(LocalDateTime appointment_time) {
-        this.appointment_time = appointment_time;
+        this.appointmentTime = appointment_time;
     }
 
-    public com.example.appointmentsystem.model.Appointment.Status getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(com.example.appointmentsystem.model.Appointment.Status status) {
-        this.status = status;
-    }
 
 }

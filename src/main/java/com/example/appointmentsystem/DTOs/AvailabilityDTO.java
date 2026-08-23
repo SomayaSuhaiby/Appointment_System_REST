@@ -2,20 +2,20 @@ package com.example.appointmentsystem.DTOs;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.NotNull;
+
 public class AvailabilityDTO {
-    private Long serviceProviderId;
+
+    @NotNull(message = "Service  Id is required")
     private Long serviceId;
+
+    @NotNull
     private LocalDateTime start_time;
+
+    @NotNull
     private LocalDateTime end_time;
 
-    public Long getServiceProviderId() {
-        return this.serviceProviderId;
-    }
-
-    public void setServiceProviderId(Long serviceProviderId) {
-        this.serviceProviderId = serviceProviderId;
-    }
-
+    
     public Long getServiceId() {
         return this.serviceId;
     }

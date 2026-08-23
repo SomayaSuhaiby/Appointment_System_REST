@@ -3,7 +3,6 @@ package com.example.appointmentsystem.DTOs;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class UserDTO {
@@ -18,12 +17,6 @@ public class UserDTO {
     @Email(message = "Invalid email adress")
     @NotBlank(message = "Email is required")
     private String email;
-
-    @NotNull(message = "Rol id is required")
-    private Long roleId;
-
-
-
 
 
     public String getUsername() {
@@ -48,14 +41,6 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Long getRoleId() {
-        return this.roleId;
-    }
-
-    public void setRoleId(Long roles) {
-        this.roleId = roles;
     }
 
 }

@@ -14,7 +14,7 @@ drop column role;
 alter table users
 modify column email varchar(255) not null unique key;
 alter table users
-add roles varchar
+add roles varchar(20);
 
 create table Role(
 id int auto_increment not null primary key,

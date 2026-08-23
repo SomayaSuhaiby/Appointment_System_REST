@@ -2,10 +2,21 @@ package com.example.appointmentsystem.DTOs;
 
 import java.math.BigDecimal;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class ServiceDTO {
+
+    @NotBlank(message = "Service name is required")
     private String name;
+
+    @NotNull(message = "Descrption is required")
     private String description;
+
+    @NotNull(message = "Price is Required")
     private BigDecimal price;
+
+    @NotNull(message = "Provider Id is required")
     private Long serviceProviderId;
 
 

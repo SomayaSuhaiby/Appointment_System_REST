@@ -2,6 +2,7 @@ package com.example.appointmentsystem.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -27,13 +28,16 @@ public class Appointment {
     @JoinColumn(name = "service_id")
     private ServiceModel service;
 
-    private LocalDateTime appointment_time;
+    @Column(name = "appointment_time")
+    private LocalDateTime appointmentTime;
 
     @Enumerated(EnumType.STRING)
-    private Status status = Status.pending;
+    private Status status = Status.PENDING;
 
     public enum Status {
-        pending, confirmed, cancelled;
+        PENDING,
+        CONFIRMED,
+        CANCELLED
     }
 
     public Long getId() {
@@ -61,11 +65,11 @@ public class Appointment {
     }
 
     public LocalDateTime getAppointments_time() {
-        return this.appointment_time;
+        return this.appointmentTime;
     }
 
     public void setAppointments_time(LocalDateTime appointments_time) {
-        this.appointment_time = appointments_time;
+        this.appointmentTime = appointments_time;
     }
 
     public Status getStatus() {
