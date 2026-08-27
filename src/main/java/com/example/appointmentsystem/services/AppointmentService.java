@@ -83,7 +83,7 @@ public class AppointmentService {
         return appointments;
     }
 
-    // Get all appointment for specific user
+    // Get all appointment for specific service
     public List<Appointment> getAppointmentsByServiceId(Long serviceId) {
         List<Appointment> appointments = appointmentRepository.findByServiceId(serviceId);
         if (appointments.isEmpty())

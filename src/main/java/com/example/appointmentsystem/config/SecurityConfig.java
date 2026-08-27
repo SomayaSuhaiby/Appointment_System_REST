@@ -2,6 +2,7 @@ package com.example.appointmentsystem.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,10 +21,11 @@ import com.example.appointmentsystem.services.CustomUserDetailsServices;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final UserRepository userRepository;
+    
+    private final CustomUserDetailsServices customUserDetailsServices;
 
-    public SecurityConfig(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public SecurityConfig(CustomUserDetailsServices customUserDetailsServices) {
+        this.customUserDetailsServices=customUserDetailsServices;
     }
 
     // @Autowired UserRepository userRepository;
@@ -32,17 +34,19 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+        /*
+        
     @Bean
     public UserDetailsService userDetailsService() {
-       // return new CustomUserDetailsServices(userRepository);
-        
-         UserDetails user=User.withUsername("admin")
-         .password(passwordEncoder().encode("1234"))
-         .roles("ADMIN")
-         .build();
-         return new InMemoryUserDetailsManager(user);
-         
-    }
+        return new CustomUserDetailsServices(userRepository);
+         * UserDetails user=User.withUsername("admin")
+         * .password(passwordEncoder().encode("1234"))
+         * .roles("ADMIN")
+         * .build();
+         * return new InMemoryUserDetailsManager(user);
+         */
+
     
 
     @Bean
@@ -50,30 +54,71 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // no need to CSRF for REST
 
-                   
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //Make REST API stateless,Best for REST APIs
-                                                                                   
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Make REST API stateless,Best for
+                                                                                 // REST APIs
+
                 .authorizeHttpRequests(auth -> auth// uthorizeRequst is deprecated
-                        // public
-                        .requestMatchers("/api/users/login", "/api/users/register",
-                                "/api/services/**", "/api/availability/**")
+
+                        // =========================
+                        // PUBLIC ENDPOINTS
+                        // =========================
+
+                        .requestMatchers(
+                                "/api/users/login",
+                                "/api/users/register")
                         .permitAll()
 
-                        // api/appointment autenticated
-                        .requestMatchers("/api/appointment/book",
-                                "/api/appointment/user/**",
-                                "/api/appointment/update/**")
+                        // Anyone can view services
+                        .requestMatchers(HttpMethod.GET, "/api/services/**")
                         .permitAll()
-                        .requestMatchers("/api/appointment/service/**").permitAll()
 
-                        // Users
-                        .requestMatchers("/api/users/**").authenticated()
+                        // Anyone can view availability
+                        .requestMatchers(HttpMethod.GET, "/api/availability/**")
+                        .permitAll()
 
-                        .anyRequest().permitAll())
-                        .httpBasic(Customizer.withDefaults())   ;
+                        // =========================
+                        // ADMIN ENDPOINTS
+                        // =========================
 
-               
+                        // Creating services -> ADMIN
+                        .requestMatchers(HttpMethod.POST, "/api/services/**")
+                        .hasRole("ADMIN")
+
+                        // Creating availability -> ADMIN
+                        .requestMatchers(HttpMethod.POST, "/api/availability/**")
+                        .hasRole("ADMIN")
+
+                        // =========================
+                        // APPOINTMENTS
+                        // =========================
+
+                        // User must be authenticated to book
+                        .requestMatchers("/api/appointment/book")
+                        .authenticated()
+
+                        // User must be authenticated
+                        .requestMatchers("/api/appointment/user/**")
+                        .authenticated()
+
+                        // User must be authenticated
+                        .requestMatchers("/api/appointment/update/**")
+                        .authenticated()
+
+                        // User must be authenticated
+                        .requestMatchers("/api/appointment/service/**")
+                        .authenticated()
+
+                        // =========================
+                        // USERS
+                        // =========================
+
+                        .requestMatchers("/api/users/**")
+                        .authenticated()
+                        // EVERYTHING ELSE
+
+                        .anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }

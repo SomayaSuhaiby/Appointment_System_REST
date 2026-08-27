@@ -69,3 +69,7 @@ select *from user_role;
 
 alter table users drop column username;
 alter table users add username varchar(255) not null;
+
+alter table appointments 
+modify column status ENUM('PENDING', 'CONFIRMED', 'CANCELLED')
+DEFAULT 'PENDING';
